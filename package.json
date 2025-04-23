@@ -1,0 +1,51 @@
+{
+  "name": "solid-chrome-extension-template",
+  "displayName": "Solid Chrome Extension Template",
+  "version": "0.202501.1",
+  "description": "Chrome Extension boilerplate with SolidJS + Vite v6 + ManifestV3",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bjesuiter/solid-chrome-extension-template.git"
+  },
+  "scripts": {
+    "dev": "vite build -w --mode development",
+    "build": "vite build --mode production",
+    "prod": "bun run build",
+    "lint": "eslint --fix",
+    "dev:nodemon": "nodemon",
+    "build:noemit": "tsc --noEmit && vite build",
+    "prettier": "prettier --write .",
+    "prefinalize": "bun run build",
+    "finalize": "bestzip deploy.zip dist/*"
+  },
+  "type": "module",
+  "dependencies": {
+    "solid-js": "^1.9.5",
+    "unplugin-icons": "^22.1.0"
+  },
+  "devDependencies": {
+    "@crxjs/vite-plugin": "^2.0.0-beta.30",
+    "@eslint/js": "^9.24.0",
+    "@iconify/json": "^2.2.329",
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/vite": "^4.1.4",
+    "@types/chrome": "0.0.315",
+    "bestzip": "^2.2.1",
+    "eslint": "9.24.0",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-solid": "^0.14.5",
+    "eslint-plugin-tailwindcss": "^3.18.0",
+    "nodemon": "3.1.9",
+    "prettier": "3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "tailwindcss": "^4.1.4",
+    "tailwindcss-motion": "^1.1.0",
+    "typescript": "5.8.3",
+    "typescript-eslint": "^8.30.1",
+    "vite": "^6.3.2",
+    "vite-plugin-solid": "2.11.6"
+  }
+}

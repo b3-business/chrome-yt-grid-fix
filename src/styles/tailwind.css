@@ -1,0 +1,9 @@
+/**
+* Import Tailwind CSS in solid app entrypoints like this 
+* import "@src/styles/tailwind.css";
+*/
+
+@import "tailwindcss";
+
+/* Docs for Motion plugin: https://docs.rombo.co/tailwind */
+@plugin "tailwindcss-motion";
