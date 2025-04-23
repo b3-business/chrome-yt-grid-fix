@@ -1,8 +1,8 @@
 {
-  "name": "solid-chrome-extension-template",
-  "displayName": "Solid Chrome Extension Template",
-  "version": "0.202501.1",
-  "description": "Chrome Extension boilerplate with SolidJS + Vite v6 + ManifestV3",
+  "name": "chrome-yt-grid-fix",
+  "displayName": "YouTube Grid Fix",
+  "version": "0.1.0",
+  "description": "Fixes YouTube's grid view by allowing configurable video count per row",
   "license": "MIT",
   "repository": {
     "type": "git",
