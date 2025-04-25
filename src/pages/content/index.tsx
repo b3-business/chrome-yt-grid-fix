@@ -1,8 +1,3 @@
-import {
-  ExtensionMessage,
-  GetGridItemsPerRowMessage,
-  GetGridItemsPerRowResponse,
-} from "@src/lib/ExtensionMessage.type";
 import { contentLogger } from "./contentLogger";
 import { waitOnceForElement } from "./waitOnceForElement";
 
@@ -11,44 +6,27 @@ let richGridElement: HTMLElement | undefined;
 
 async function main() {
   richGridElement = await waitOnceForElement(richGridSelector);
-  const rawResponse = await chrome.runtime.sendMessage<
-    GetGridItemsPerRowMessage,
-    GetGridItemsPerRowResponse
-  >({
-    type: "GET_GRID_ITEMS_PER_ROW",
+  const storageResponse = await chrome.storage.sync.get({
+    preferredGridItemsPerRow: 5,
   });
-  const parsedResponse = GetGridItemsPerRowResponse.safeParse(rawResponse);
-  if (!parsedResponse.success) {
-    contentLogger.error(
-      `Invalid response to GET_GRID_ITEMS_PER_ROW: ${parsedResponse.error.message}`,
-      { rawResponse },
-    );
-    return;
-  }
 
-  updateGridItemsPerRow(richGridElement, parsedResponse.data.value);
+  updateGridItemsPerRow(
+    richGridElement,
+    storageResponse.preferredGridItemsPerRow,
+  );
 }
 main();
 
-chrome.runtime.onMessage.addListener(
-  (originalMessage, sender, sendResponse) => {
-    const parsedMessage = ExtensionMessage.safeParse(originalMessage);
-    if (!parsedMessage.success) {
-      contentLogger.error(`Invalid message: ${parsedMessage.error}`);
-      sendResponse({ error: `Invalid message: ${parsedMessage.error}` });
-      return false;
-    }
-    const message = parsedMessage.data;
-    contentLogger.debug(`Received message: ${message}`);
-
-    if (message.type === "UPDATE_GRID_ITEMS_PER_ROW") {
-      updateGridItemsPerRow(richGridElement, message.value);
-      return true;
-    }
-
-    return false;
-  },
-);
+// Setup a listener for changes to the storage
+chrome.storage.sync.onChanged.addListener((changes) => {
+  contentLogger.debug(`Storage changes: ${JSON.stringify(changes)}`);
+  if (changes.preferredGridItemsPerRow) {
+    updateGridItemsPerRow(
+      richGridElement,
+      changes.preferredGridItemsPerRow.newValue,
+    );
+  }
+});
 
 function updateGridItemsPerRow(
   richGridElement: HTMLElement | undefined,
