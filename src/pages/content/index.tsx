@@ -1,8 +1,12 @@
-import { render } from "solid-js/web";
-import { App } from "./components/Demo/app";
+// const root = document.createElement("div");
+// root.id = "my-extension-root";
+// document.body.append(root);
 
-const root = document.createElement("div");
-root.id = "my-extension-root";
-document.body.append(root);
+// render(App, root);
 
-render(App, root);
+const $ytRichGridRenderer = document.querySelector("ytd-rich-grid-renderer");
+
+// if (!$ytRichGridRenderer) {
+//   console.error("[] No ytRichGridRenderer found");
+//   return;
+// }
