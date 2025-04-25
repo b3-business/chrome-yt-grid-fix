@@ -1,12 +1,13 @@
-// const root = document.createElement("div");
-// root.id = "my-extension-root";
-// document.body.append(root);
+import { mainLogger } from "@src/utils/logger";
 
-// render(App, root);
+const logger = mainLogger.getSubLogger({ name: "content.page" });
 
-const $ytRichGridRenderer = document.querySelector("ytd-rich-grid-renderer");
+function main() {
+  const $ytRichGridRenderer = document.querySelector("ytd-rich-grid-renderer");
 
-// if (!$ytRichGridRenderer) {
-//   console.error("[] No ytRichGridRenderer found");
-//   return;
-// }
+  if (!$ytRichGridRenderer) {
+    logger.error("Element yt-rich-grid-renderer not found");
+  }
+}
+
+main();
