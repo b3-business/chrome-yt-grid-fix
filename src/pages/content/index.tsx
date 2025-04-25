@@ -11,14 +11,22 @@ let richGridElement: HTMLElement | undefined;
 
 async function main() {
   richGridElement = await waitOnceForElement(richGridSelector);
-  const preferredGridItemsPerRow = await chrome.runtime.sendMessage<
+  const rawResponse = await chrome.runtime.sendMessage<
     GetGridItemsPerRowMessage,
     GetGridItemsPerRowResponse
   >({
     type: "GET_GRID_ITEMS_PER_ROW",
   });
+  const parsedResponse = GetGridItemsPerRowResponse.safeParse(rawResponse);
+  if (!parsedResponse.success) {
+    contentLogger.error(
+      `Invalid response to GET_GRID_ITEMS_PER_ROW: ${parsedResponse.error.message}`,
+      { rawResponse },
+    );
+    return;
+  }
 
-  updateGridItemsPerRow(richGridElement, preferredGridItemsPerRow.value);
+  updateGridItemsPerRow(richGridElement, parsedResponse.data.value);
 }
 main();
 
