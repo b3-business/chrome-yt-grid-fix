@@ -4,6 +4,10 @@ export function waitOnceForElement(selector: string) {
   const targetNode = document.body;
   const config = { childList: true, subtree: true };
 
+  if (document.querySelector(selector) !== null) {
+    return Promise.resolve(document.querySelector(selector) as HTMLElement);
+  }
+
   return new Promise<HTMLElement>((resolve, reject) => {
     // Callback function to execute when mutations are observed.
     const mutationObserverCallback = function (mutationsList, observer) {
