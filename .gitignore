@@ -18,3 +18,4 @@ public/manifest.json
 .env
 
 *.zip
+**/*.afdesign~lock~
