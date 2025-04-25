@@ -1,13 +1,15 @@
-import { mainLogger } from "@src/utils/logger";
+import { contentLogger } from "./logger";
+import { waitOnceForElement } from "./waitOnceForElement";
 
-const logger = mainLogger.getSubLogger({ name: "content.page" });
-
-function main() {
-  const $ytRichGridRenderer = document.querySelector("ytd-rich-grid-renderer");
-
-  if (!$ytRichGridRenderer) {
-    logger.error("Element yt-rich-grid-renderer not found");
-  }
+async function main() {
+  const richGridRenderer$ = await waitOnceForElement(
+    "#contents.ytd-rich-grid-renderer",
+  );
+  const style = window.getComputedStyle(richGridRenderer$);
+  const gridItemsPerRow = style.getPropertyValue(
+    "--ytd-rich-grid-items-per-row",
+  );
+  contentLogger.info(`Current grid items per row: ${gridItemsPerRow}`);
 }
 
 main();
