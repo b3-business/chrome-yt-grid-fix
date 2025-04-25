@@ -1,7 +1,7 @@
 {
   "name": "chrome-yt-grid-fix",
   "displayName": "YouTube Grid Fix",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Fixes YouTube's grid view by allowing to configure the video count per row",
   "license": "MIT",
   "repository": {
