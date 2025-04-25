@@ -9,7 +9,7 @@
     "url": "https://github.com/bjesuiter/solid-chrome-extension-template.git"
   },
   "scripts": {
-    "dev": "bun dev:nodemon",
+    "dev": "nodemon",
     "dev:vite": "vite build -w --mode development",
     "dev:nodemon": "nodemon",
     "build": "vite build --mode production",
