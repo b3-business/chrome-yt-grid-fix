@@ -2,18 +2,19 @@
   "name": "chrome-yt-grid-fix",
   "displayName": "YouTube Grid Fix",
   "version": "0.1.0",
-  "description": "Fixes YouTube's grid view by allowing configurable video count per row",
+  "description": "Fixes YouTube's grid view by allowing to configure the video count per row",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/bjesuiter/solid-chrome-extension-template.git"
   },
   "scripts": {
-    "dev": "vite build -w --mode development",
+    "dev": "bun dev:nodemon",
+    "dev:vite": "vite build -w --mode development",
+    "dev:nodemon": "nodemon",
     "build": "vite build --mode production",
     "prod": "bun run build",
     "lint": "eslint --fix",
-    "dev:nodemon": "nodemon",
     "build:noemit": "tsc --noEmit && vite build",
     "prettier": "prettier --write .",
     "prefinalize": "bun run build",
