@@ -1,4 +1,4 @@
-import { contentLogger } from "./logger";
+import { contentLogger } from "./contentLogger";
 import { waitOnceForElement } from "./waitOnceForElement";
 
 async function main() {

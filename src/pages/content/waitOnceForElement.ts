@@ -1,4 +1,4 @@
-import { contentLogger } from "./logger";
+import { contentLogger } from "./contentLogger";
 
 export function waitOnceForElement(selector: string) {
   const targetNode = document.body;
