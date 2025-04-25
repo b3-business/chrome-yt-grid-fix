@@ -4,9 +4,12 @@ import {
   UpdateGridItemsPerRowResponse,
 } from "@src/lib/ExtensionMessage.type";
 import { mainLogger } from "@src/utils/logger";
+import { initStorage } from "./initStorage";
 
 const logger = mainLogger.getSubLogger({ name: "background" });
 logger.info("background script loaded");
+
+initStorage();
 
 chrome.runtime.onMessage.addListener((pureMessage, sender, sendResponse) => {
   const messageParsed = ExtensionMessage.safeParse(pureMessage);
