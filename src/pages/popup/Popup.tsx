@@ -1,9 +1,3 @@
-import {
-  GetGridItemsPerRowMessage,
-  GetGridItemsPerRowResponse,
-  UpdateGridItemsPerRowMessage,
-  UpdateGridItemsPerRowResponse,
-} from "@src/lib/ExtensionMessage.type";
 import "@src/styles/tailwind.css";
 import { createResource } from "solid-js";
 import { popupLogger } from "./popupLogger";
@@ -11,31 +5,22 @@ import { popupLogger } from "./popupLogger";
 export function PopupPage() {
   const [preferredGridItemsPerRow, { mutate, refetch }] = createResource(
     async () => {
-      // Send message to background script to get the value
-      const response = await chrome.runtime.sendMessage<
-        GetGridItemsPerRowMessage,
-        GetGridItemsPerRowResponse
-      >({
-        type: "GET_GRID_ITEMS_PER_ROW",
+      const storageResponse = await chrome.storage.sync.get({
+        preferredGridItemsPerRow: 5,
       });
-
-      popupLogger.debug(`Got preferred grid items per row: ${response.value}`);
-      return response.value;
+      popupLogger.debug(
+        `Got preferred grid items per row: ${storageResponse.preferredGridItemsPerRow}`,
+      );
+      return storageResponse.preferredGridItemsPerRow;
     },
   );
 
   const handleChange = async (e: Event) => {
     const target = e.target as HTMLInputElement;
     const value = parseInt(target.value, 10);
-
-    await chrome.runtime.sendMessage<
-      UpdateGridItemsPerRowMessage,
-      UpdateGridItemsPerRowResponse
-    >({
-      type: "UPDATE_GRID_ITEMS_PER_ROW",
-      value,
+    chrome.storage.sync.set({
+      preferredGridItemsPerRow: value,
     });
-
     popupLogger.debug(`Set preferred grid items per row: ${value}`);
     mutate(value);
   };
