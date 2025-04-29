@@ -1,16 +1,19 @@
 import { contentLogger } from "./contentLogger";
 
-export function waitOnceForElement(selector: string) {
+export function waitOnceForElements(selector: string) {
   const targetNode = document.body;
   const config = { childList: true, subtree: true };
 
-  if (document.querySelector(selector) !== null) {
-    return Promise.resolve(document.querySelector(selector) as HTMLElement);
+  const elements = document.querySelectorAll(selector);
+  if (elements.length > 0) {
+    return Promise.resolve(Array.from(elements) as HTMLElement[]);
   }
 
-  return new Promise<HTMLElement>((resolve, reject) => {
+  return new Promise<HTMLElement[]>((resolve, reject) => {
     // Callback function to execute when mutations are observed.
     const mutationObserverCallback = function (mutationsList, observer) {
+      let nodesFound = [];
+
       // Use traditional for loops for performance
       for (let i = 0; i < mutationsList.length; i++) {
         const mutation = mutationsList[i];
@@ -26,18 +29,16 @@ export function waitOnceForElement(selector: string) {
           if (addedNode.nodeType === 1 && addedNode.matches(selector)) {
             contentLogger.info(`Element ${selector} was added to the DOM.`);
 
-            // You've found the element, so you might want to disconnect the observer
-            // if you only need to detect the first insertion.
-            // observer.disconnect();
-            observer.disconnect();
-
-            //   Return the element from the promise
-            resolve(addedNode);
-
-            // Exit the inner loop since we found the element
-            return;
+            nodesFound.push(addedNode);
           }
         }
+      }
+
+      if (nodesFound.length > 0) {
+        // You've found the element, so you might want to disconnect the observer
+        // if you only need to detect the first insertion.
+        observer.disconnect();
+        resolve(nodesFound);
       }
     };
 
