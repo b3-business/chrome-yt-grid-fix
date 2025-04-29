@@ -81,7 +81,7 @@ searchElementAndApplyGridFix();
 //   }, 2000);
 // });
 
-Setup a listener for navigation changes
+// Setup a listener for navigation changes
 const ytdAppElements = document.querySelectorAll(ytdAppSelector);
 if (ytdAppElements.length > 0) {
   contentLogger.debug("ytdAppElement found");
