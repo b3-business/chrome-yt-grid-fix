@@ -39,6 +39,7 @@ const manifest = defineManifest(async () => ({
     },
   ],
   permissions: ["storage"],
+  host_permissions: ["https://youtube.com/*"],
 }));
 
 export default manifest;
