@@ -71,16 +71,6 @@ function updateGridItemsPerRow(
 // Runs on page load
 searchElementAndApplyGridFix();
 
-//
-// (window as any).navigation.addEventListener("navigate", (event: any) => {
-//   const url = new URL(event.destination.url);
-//   const delayedExec = setTimeout(async () => {
-//     contentLogger.info("doing onPageLoad again", { url: url.href });
-//     onPageLoad();
-//     clearTimeout(delayedExec);
-//   }, 2000);
-// });
-
 // Setup a listener for navigation changes
 const ytdAppElements = document.querySelectorAll(ytdAppSelector);
 if (ytdAppElements.length > 0) {
