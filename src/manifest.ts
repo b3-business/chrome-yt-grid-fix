@@ -27,7 +27,7 @@ const manifest = defineManifest(async () => ({
   },
   content_scripts: [
     {
-      matches: ["https://youtube.com/*"],
+      matches: ["https://www.youtube.com/*"],
       js: ["src/pages/content/content.tsx"],
     },
   ],
@@ -39,7 +39,7 @@ const manifest = defineManifest(async () => ({
     },
   ],
   permissions: ["storage"],
-  host_permissions: ["https://youtube.com/*"],
+  host_permissions: ["https://www.youtube.com/*"],
 }));
 
 export default manifest;
